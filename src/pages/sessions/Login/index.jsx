@@ -1,111 +1,54 @@
-import {Link, Typography} from "@mui/material";
-import { withStyles } from "@mui/styles";
-import React, { Component } from "react";
-import { styleSheet } from "./style";
-import TextField from '@mui/material/TextField';
-import GDSEButton from "../../../components/common/Button";
-import GDSESnackBar from "../../../components/common/SnackBar";
+import React from 'react'
+import TextField from "@mui/material/TextField";
+import Checkbox from "@mui/material/Checkbox";
+import { Grid,Paper, Avatar, Button, Typography,Link }  from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import LockIcon from '@mui/icons-material/Lock';
+
 
 const log = new URL("../../../assets/images/log.png",import.meta.url)
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            userName: 'customer',
-            pw: 'customer',
-            formData: {
-                user_name: '',
-                password: ''
-            },
-            //for snackbar props
-            open: false,
-            message: '',
-            severity: ''
-        }
-    }
+const Login=()=>{
 
-    checkValidity() {
-        console.log("Login button clicked!")
+    const paperStyle={padding :20,height:'80vh',width:400,marginLeft:550,marginTop:45}
 
-        console.log(this.state.formData)
-
-        let formData = this.state.formData
-
-        if (formData.user_name === this.state.userName && formData.password === this.state.pw) {
-            console.log('credential matched!')
-            this.setState({
-                open: true,
-                message: 'User credential matching sucess!',
-                severity: 'success'
-            })
-        } else {
-            console.log('credential didn\'t matche!')
-            this.setState({
-                open: true,
-                message: 'User credential not matching!',
-                severity: 'error'
-            })
-        }
-    }
-
-    render() {
-        const { classes } = this.props;
-        return (
-            <div className={classes.container}>
-                <div className={classes.login__cover}>
-                    <div className={classes.title__container}>
-                        <img src={log} style={{position:"absolute", top:150, left:710,width:90,height:90}}/>
-                        <Typography variant="h4" style={{ fontFamily: "Times New Roman", fontWeight:"bold",position:"absolute",top:22,left:700,color:"#00008B"}}>Login</Typography>
-                    </div>
-                    <div className={classes.form__container}>
-                        <TextField
-                            id="outlined-basic"
-                            label="User name"
-                            variant="outlined"
-                            onChange={(e) => {
-                                console.log(e.target.value)
-                                let formData = this.state.formData
-                                formData.user_name = e.target.value
-                                this.setState({ formData })
-                            }}
-                        />
-                        <TextField
-                            id="outlined-basic"
-                            type="password"
-                            label="Password"
-                            variant="outlined"
-                            onChange={(e) => {
-                                console.log(e.target.value)
-                                let formData = this.state.formData
-                                formData.password = e.target.value
-                                this.setState({ formData })
-                            }}
-                        />
-                    </div>
-                    <div className={classes.btn__container}>
-                        <Link href="rentalrequest" underline="none">
-                            <GDSEButton
-                                variant="contained"
-                                label="Login"
-                                onClick={() => {
-                                    this.checkValidity()
-                                }}
+    // const avatarStyle={backgroundColor:'#7B1FA2'}
+    return(
+        <Grid>
+            <Paper elevation={10} style={paperStyle}>
+                <Grid align='center'>
+                    <img src={log} />
+                    <h2 style={{color:"green"}}>Log In</h2>
+                </Grid>
+                <TextField label='Username' placeholder='Enter username' fullWidth required sx={{mt:4}}/>
+                <TextField label='Password' placeholder='Enter password' type='password' fullWidth required sx={{mt:2}}/>
+                <Typography sx={{mt:3}}>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                name="checkedB"
+                                color="success"
                             />
-                        </Link>
-                    </div>
-                </div>
-                <GDSESnackBar
-                    open={this.state.open}
-                    onClose={() => {
-                        this.setState({ open: false })
-                    }}
-                    message={this.state.message}
-                    autoHideDuration={3000}
-                    severity={this.state.severity}
-                    variant="filled"
-                />
-            </div>
-        )
-    }
+                        }
+                        label="Remember me"
+
+                    />
+                    <Link href="#" sx={{ml:13,color:"success"}} underline="none" color='success'>
+                        Forgot password ?
+                    </Link>
+                </Typography>
+                <Link href="dash" underline="none">
+                    <Button type='submit' color='success' variant="contained" sx={{mt:5}} fullWidth>Sign in</Button>
+                </Link>
+                <Typography sx={{mt:2,ml:10}}> Do you have an account ?
+                    <Link href="signUp" underline="none" color='success' >
+                        Sign Up
+                    </Link>
+                </Typography>
+            </Paper>
+
+
+        </Grid>
+    )
 }
-export default withStyles(styleSheet)(Login)
+
+export default Login

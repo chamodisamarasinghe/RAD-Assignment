@@ -40,7 +40,7 @@ const Login=()=>{
                     <Button type='submit' color='success' variant="contained" sx={{mt:5}} fullWidth>Sign in</Button>
                 </Link>
                 <Typography sx={{mt:2,ml:10}}> Do you have an account ?
-                    <Link href="signUp" underline="none" color='success' >
+                    <Link href="register" underline="none" color='success' >
                         Sign Up
                     </Link>
                 </Typography>

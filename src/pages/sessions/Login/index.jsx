@@ -11,7 +11,7 @@ const Login=()=>{
 
     const paperStyle={padding :20,height:'80vh',width:400,marginLeft:550,marginTop:45}
 
-    // const avatarStyle={backgroundColor:'#7B1FA2'}
+
     return(
         <Grid>
             <Paper elevation={10} style={paperStyle}>

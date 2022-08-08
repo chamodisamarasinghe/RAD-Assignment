@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import TextField from "@mui/material/TextField";
 import {Box, Button, Grid, IconButton} from "@mui/material";
-import DriverService from "../../../services/ProductService";
+import ProductService from "../../../services/ProductService";
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import Divider from "@mui/material/Divider";
@@ -24,16 +24,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import DashNav from "../Dash/nav";
 const defaultPosition = toast.POSITION.BOTTOM_CENTER;
 
-function createData(did, name, address, contactNo, nicNo, licenseNo, username,password,update, deleted) {
+function createData(title,
+                    price,
+                    category,
+                    description,
+                    image,update, deleted) {
     return {
-        did,
-        name,
-        address,
-        contactNo,
-        nicNo,
-        licenseNo,
-        username,
-        password,
+        title,
+        price,
+        category,
+        description,
+        image,
+
         update,
         deleted
     };
@@ -71,65 +73,36 @@ function stableSort(array, comparator) {
 
 const headCells = [
     {
-        id: 'did',
+        title: 'title',
         numeric: false,
         disablePadding: true,
-        label: 'Id',
+        label: 'Title',
     },
     {
-        id: 'name',
+        price: 'price',
         numeric: false,
         disablePadding: true,
-        label: 'Name',
+        label: 'Price',
     },
     {
-        id: 'address',
+        id: 'category',
         numeric: false,
         disablePadding: true,
-        label: 'Address',
+        label: 'Category',
     },
     {
-        id: 'contactNo',
+        id: 'description',
         numeric: false,
         disablePadding: true,
-        label: 'Contact No',
+        label: 'Description',
     },
     {
-        id: 'nicNo',
+        id: 'image',
         numeric: false,
         disablePadding: true,
-        label: 'NIC',
+        label: 'Image',
     },
-    {
-        id: 'licenseNo',
-        numeric: false,
-        disablePadding: true,
-        label: 'License No',
-    },
-    {
-        id: 'username',
-        numeric: false,
-        disablePadding: true,
-        label: 'User_Name',
-    },
-    {
-        id: 'password',
-        numeric: false,
-        disablePadding: true,
-        label: 'Pass_word',
-    },
-    {
-        id: 'update',
-        numeric: false,
-        disablePadding: true,
-        label: 'Update',
-    },
-    {
-        id: 'deleted',
-        numeric: false,
-        disablePadding: true,
-        label: 'Delete',
-    },
+
 
 ];
 
@@ -149,18 +122,18 @@ function EnhancedTableHead(props) {
                 </TableCell>
                 {headCells.map((headCell) => (
                     <TableCell
-                        key={headCell.id}
+                        key={headCell.title}
                         align={headCell.numeric ? 'right' : 'left'}
                         padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
                         <TableSortLabel
-                            active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id)}
+                            active={orderBy === headCell.title}
+                            direction={orderBy === headCell.title ? order : 'asc'}
+                            onClick={createSortHandler(headCell.title)}
                         >
                             {headCell.label}
-                            {orderBy === headCell.id ? (
+                            {orderBy === headCell.title ? (
                                 <Box component="span" sx={visuallyHidden}>
                                     {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                                 </Box>
@@ -210,18 +183,12 @@ const Product = ({}) => {
 
     const initialValues = {
 
-        did: "",
-        name: "",
-        address: "",
-        contactNo: "",
-        nicNo: "",
-        licenseNo: "",
-        username: "",
-        password: "",
-        /**
-         * Exta data
-         * */
-        isAvailable: false,
+        title:"",
+        price:"",
+        category:"",
+        description:"",
+        image:"",
+
     };
 
     const statusObj = {
@@ -256,31 +223,29 @@ const Product = ({}) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        await submitDriver();
+        await submitProduct();
     }
 
     const clearFields = () => {
 
         setFormValues({
-            did: "",
-            nicNo: "",
-            name: "",
-            licenseNo: "",
-            address: "",
-            contactNo: "",
-            username: "",
-            password: "",
+            title:"",
+            price:"",
+            category:"",
+            description:"",
+            image:"",
+
 
         });
     };
 
-    const submitDriver = async () => {
+    const submitProduct = async () => {
 
         let dto = {};
         dto = formValues;
 
         if (btnLabel === "Add Driver") {
-            let res = await DriverService.addDriver(dto);//customer service --> postCustomer()
+            let res = await ProductService.addProduct(dto);//customer service --> postCustomer()
             console.log(res.status)
 
             console.log("res Status", res.data)
@@ -306,7 +271,7 @@ const Product = ({}) => {
                 showToast('error', 'Not Saved');
             }
         } else {
-            let res = await DriverService.putDriver(formValues);//customer service --> putCustomer()
+            let res = await ProductService.putProduct(formValues);//customer service --> putCustomer()
             if (res.status === 200) {
                 setStatus({
                     alert: true,
@@ -332,7 +297,7 @@ const Product = ({}) => {
 
 
     const loadData = async () => {
-        DriverService.fetchDriver().then((res) => {
+        ProductService.fetchProduct().then((res) => {
             if (res.status === 200) {
                 setTblData(res.data.data)
                 setDataToRows(res.data.data)
@@ -340,11 +305,11 @@ const Product = ({}) => {
         });
     };
 
-    const deleteDriver = async (did) => {
+    const deleteProduct = async (did) => {
         let params = {
             did: did
         }
-        let res = await DriverService.deleteDriver(params);
+        let res = await ProductService.deleteProduct(params);
 
         if (res.status === 200) {
             setStatus({
@@ -364,18 +329,16 @@ const Product = ({}) => {
         }
     };
 
-    const updateDriver = async (data) => {
-        setBtnLabel("Update Driver");
+    const updateProduct = async (data) => {
+        setBtnLabel("Update Product");
         setBtnColor('secondary')
         setFormValues({
-            did:data.did,
-            name: data.name,
-            address: data.address,
-            contactNo: data.contactNo,
-            nicNo: data.nicNo,
-            licenseNo: data.licenseNo,
-            username: data.username,
-            password: data.password,
+            title:data.title,
+            price: data.price,
+            category: data.category,
+            description: data.description,
+            image: data.image,
+
 
 
         });
@@ -397,18 +360,12 @@ const Product = ({}) => {
         const newArr2 = []
         for (let i = 0; i < td.length; i++) {
             newArr2.push((createData(
-                td[i].did,td[i].name,td[i].address,td[i].contactNo,td[i].nicNo, td[i].licenseNo, td[i].username,td[i].password
+                td[i].title,td[i].price,td[i].category,td[i].description,td[i].image
             )))
         }
         console.log("new Arra", newArr2)
         setRows(newArr2)
-        // td.map((data) => (
-        //     setRows(createData(
-        //         data.registrationNO, data.brand, data.type, data.noOfPassengers, data.transmissionType, data.fuelType, data.color, data.frontViewImg,
-        //         data.backViewImg, data.sideViewImg, data.internalViewImg, data.dailyRate, data.monthlyRate, data.freeKmForPrice, data.freeKmForDuration,
-        //         data.lossDamageWaiver, data.priceForExtraKm, data.completeKm,"update","deleted","maintain"
-        //     ))
-        // ))
+
 
     };
 
@@ -469,20 +426,20 @@ const Product = ({}) => {
                       sx={{paddingLeft: 5, mt: 5}}
                 >
                     <Grid item>
-                        <TextField id="outlined-basic" label="Id" variant="outlined"
-                                   helperText="Enter Id" name="did"
+                        <TextField id="outlined-basic" label="Title" variant="outlined"
+                                   helperText="Enter Title" name="title"
                                    onChange={handleInputChange} validators={['required']}
-                                   value={formValues.did}/>
+                                   value={formValues.title}/>
                     </Grid>
                     <Grid item>
                         <TextField
-                            helperText="Enter Name"
+                            helperText="Enter Price"
                             variant="outlined"
                             id="outlined-basic"
-                            label="Name"
-                            name="name"
+                            label="Price"
+                            name="price"
                             onChange={handleInputChange}
-                            value={formValues.name}
+                            value={formValues.price}
                         />
                     </Grid>
                     <Grid item>
@@ -498,54 +455,35 @@ const Product = ({}) => {
 
                     <Grid item>
                         <TextField
-                            helperText="Enter Contact No"
+                            helperText="Enter Category"
                             id="demo-helper-text-aligned"
-                            label="Contact No"
-                            name="contactNo"
+                            label="Category"
+                            name="category"
                             onChange={handleInputChange}
-                            value={formValues.contactNo}
+                            value={formValues.category}
                         />
                     </Grid>
                     <Grid item>
                         <TextField
-                            helperText="Enter UserName"
+                            helperText="Enter Description"
                             id="demo-helper-text-aligned"
-                            label="UserName"
-                            name="username"
+                            label="Description"
+                            name="description"
                             onChange={handleInputChange}
-                            value={formValues.username}
+                            value={formValues.description}
                         />
                     </Grid>
+
                     <Grid item>
                         <TextField
-                            helperText="Enter Password"
+                            helperText="Upload Image"
                             id="demo-helper-text-aligned"
-                            label="Password"
-                            name="password"
+                            label="Image"
+                            name="image"
                             onChange={handleInputChange}
-                            value={formValues.password}
+                            value={formValues.image}
                         />
                     </Grid>
-                    <Grid item>
-                        <TextField
-                            helperText="Enter NIC"
-                            id="demo-helper-text-aligned"
-                            label="NIC"
-                            name="nicNo"
-                            onChange={handleInputChange}
-                            value={formValues.nicNo}
-                        />
-                    </Grid>
-
-
-
-
-
-
-
-
-
-
 
 
                 </Grid>
@@ -561,10 +499,10 @@ const Product = ({}) => {
                 </IconButton>
                 <div>
                     <div>
-                        <Button color="secondary" size="medium" type="submit" variant="contained"
-                                sx={{ml: 45, mt: -13}}>
-                            Search
-                        </Button>
+                        {/*<Button color="secondary" size="medium" type="submit" variant="contained"*/}
+                        {/*        sx={{ml: 45, mt: -13}}>*/}
+                        {/*    Search*/}
+                        {/*</Button>*/}
 
                         <Button color={btnColor} size="medium" type="submit" variant="contained"
                                 sx={{ml: 3, mt: -13}}>
@@ -594,108 +532,92 @@ const Product = ({}) => {
                                         onRequestSort={handleRequestSort}
                                         rowCount={rows.length}
                                     />
-                                    {/*<TableBody>*/}
-                                    {/*    {stableSort(rows, getComparator(order, orderBy))*/}
-                                    {/*        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)*/}
-                                    {/*        .map((row, index) => {*/}
-                                    {/*            const isItemSelected = isSelected(row.did);*/}
-                                    {/*            const labelId = `enhanced-table-checkbox-${index}`;*/}
+                                    <TableBody>
+                                        {stableSort(rows, getComparator(order, orderBy))
+                                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                            .map((row, index) => {
+                                                const isItemSelected = isSelected(row.title);
+                                                const labelId = `enhanced-table-checkbox-${index}`;
 
-                                    {/*            return (*/}
-                                    {/*                <TableRow*/}
-                                    {/*                    hover*/}
-                                    {/*                    aria-checked={isItemSelected}*/}
-                                    {/*                    tabIndex={-1}*/}
-                                    {/*                    key={row.did}*/}
-                                    {/*                    selected={isItemSelected}*/}
-                                    {/*                >*/}
-                                    {/*                    <TableCell>*/}
-                                    {/*                    </TableCell>*/}
-                                    {/*                    <TableCell*/}
-                                    {/*                        component="th"*/}
-                                    {/*                        id={labelId}*/}
-                                    {/*                        scope="row"*/}
-                                    {/*                        padding="none"*/}
-                                    {/*                    >*/}
-                                    {/*                        {row.did}*/}
-                                    {/*                    </TableCell>*/}
-                                    {/*                    <TableCell component="th"*/}
-                                    {/*                               id={labelId}*/}
-                                    {/*                               scope="row"*/}
-                                    {/*                               padding="none">{row.name}</TableCell>*/}
-                                    {/*                    <TableCell component="th"*/}
-                                    {/*                               id={labelId}*/}
-                                    {/*                               scope="row"*/}
-                                    {/*                               padding="none">{row.address}</TableCell>*/}
-                                    {/*                    <TableCell component="th"*/}
-                                    {/*                               id={labelId}*/}
-                                    {/*                               scope="row"*/}
-                                    {/*                               padding="none">{row.contactNo}*/}
-                                    {/*                    </TableCell>*/}
-                                    {/*                    <TableCell component="th"*/}
-                                    {/*                               id={labelId}*/}
-                                    {/*                               scope="row"*/}
-                                    {/*                               padding="none">{row.nicNo}*/}
-                                    {/*                    </TableCell>*/}
-                                    {/*                    <TableCell component="th"*/}
-                                    {/*                               id={labelId}*/}
-                                    {/*                               scope="row"*/}
-                                    {/*                               padding="none">{row.licenseNo}*/}
-                                    {/*                    </TableCell>*/}
-
-                                    {/*                    <TableCell component="th"*/}
-                                    {/*                               id={labelId}*/}
-                                    {/*                               scope="row"*/}
-                                    {/*                               padding="none">{row.username}*/}
-                                    {/*                    </TableCell>*/}
-                                    {/*                    <TableCell component="th"*/}
-                                    {/*                               id={labelId}*/}
-                                    {/*                               scope="row"*/}
-                                    {/*                               padding="none">{row.password}*/}
-                                    {/*                    </TableCell>*/}
-
-                                    {/*                    <TableCell component="th"*/}
-                                    {/*                               id={labelId}*/}
-                                    {/*                               scope="row"*/}
-                                    {/*                               padding="none">{row.isAvailable}*/}
-                                    {/*                    </TableCell>*/}
-                                    {/*                    <TableCell component="th"*/}
-                                    {/*                               id={labelId}*/}
-                                    {/*                               scope="row"*/}
-                                    {/*                               padding="none">{row.update}*/}
-                                    {/*                        <IconButton onClick={() => {*/}
-                                    {/*                            updateDriver(row);*/}
-                                    {/*                        }} color="info" aria-label="update" component="label">*/}
-                                    {/*                            <CreateIcon/>*/}
-                                    {/*                        </IconButton>*/}
-
-                                    {/*                    </TableCell>*/}
-                                    {/*                    <TableCell component="th"*/}
-                                    {/*                               id={labelId}*/}
-                                    {/*                               scope="row"*/}
-                                    {/*                               padding="none">{row.delete}*/}
-
-                                    {/*                        <IconButton onClick={() => deleteDriver(row.did)}*/}
-                                    {/*                                    color="error" aria-label="delete"*/}
-                                    {/*                                    component="label">*/}
-                                    {/*                            <DeleteIcon/>*/}
-                                    {/*                        </IconButton>*/}
-                                    {/*                    </TableCell>*/}
+                                                return (
+                                                    <TableRow
+                                                        hover
+                                                        aria-checked={isItemSelected}
+                                                        tabIndex={-1}
+                                                        key={row.title}
+                                                        selected={isItemSelected}
+                                                    >
+                                                        <TableCell>
+                                                        </TableCell>
+                                                        <TableCell
+                                                            component="th"
+                                                            id={labelId}
+                                                            scope="row"
+                                                            padding="none"
+                                                        >
+                                                            {row.title}
+                                                        </TableCell>
+                                                        <TableCell component="th"
+                                                                   id={labelId}
+                                                                   scope="row"
+                                                                   padding="none">{row.price}</TableCell>
+                                                        <TableCell component="th"
+                                                                   id={labelId}
+                                                                   scope="row"
+                                                                   padding="none">{row.category}</TableCell>
+                                                        <TableCell component="th"
+                                                                   id={labelId}
+                                                                   scope="row"
+                                                                   padding="none">{row.description}
+                                                        </TableCell>
+                                                        <TableCell component="th"
+                                                                   id={labelId}
+                                                                   scope="row"
+                                                                   padding="none">{row.image}
+                                                        </TableCell>
 
 
-                                    {/*                </TableRow>*/}
-                                    {/*            );*/}
-                                    {/*        })}*/}
-                                    {/*    {emptyRows > 0 && (*/}
-                                    {/*        <TableRow*/}
-                                    {/*            style={{*/}
-                                    {/*                height: (dense ? 33 : 53) * emptyRows,*/}
-                                    {/*            }}*/}
-                                    {/*        >*/}
-                                    {/*            <TableCell colSpan={6}/>*/}
-                                    {/*        </TableRow>*/}
-                                    {/*    )}*/}
-                                    {/*</TableBody>*/}
+
+
+
+
+                                                        <TableCell component="th"
+                                                                   id={labelId}
+                                                                   scope="row"
+                                                                   padding="none">{row.update}
+                                                            <IconButton onClick={() => {
+                                                                updateProduct(row);
+                                                            }} color="info" aria-label="update" component="label">
+                                                                <CreateIcon/>
+                                                            </IconButton>
+
+                                                        </TableCell>
+                                                        <TableCell component="th"
+                                                                   id={labelId}
+                                                                   scope="row"
+                                                                   padding="none">{row.delete}
+
+                                                            <IconButton onClick={() => deleteProduct(row.title)}
+                                                                        color="error" aria-label="delete"
+                                                                        component="label">
+                                                                <DeleteIcon/>
+                                                            </IconButton>
+                                                        </TableCell>
+
+
+                                                    </TableRow>
+                                                );
+                                            })}
+                                        {emptyRows > 0 && (
+                                            <TableRow
+                                                style={{
+                                                    height: (dense ? 33 : 53) * emptyRows,
+                                                }}
+                                            >
+                                                <TableCell colSpan={6}/>
+                                            </TableRow>
+                                        )}
+                                    </TableBody>
                                 </Table>
                             </TableContainer>
                             <TablePagination

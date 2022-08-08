@@ -4,7 +4,7 @@ class ProductService {
 
     baseURL = "http://localhost:8080/backEnd/api/v1/";
 
-    addDriver = async (data) => {
+    addProduct = async (data) => {
         const promise = new Promise((resolve, reject) => {
             axios.post(`${this.baseURL}admin/driver`, data)
                 .then((res) => {
@@ -18,7 +18,7 @@ class ProductService {
     }
 
 
-    putDriver = async (data) => {
+    putProduct = async (data) => {
         const promise = new Promise((resolve, reject) => {
             axios.put(`${this.baseURL}admin/driver`, data)
                 .then((res) => {
@@ -34,7 +34,7 @@ class ProductService {
 
 
 
-    deleteDriver = async (params) => {
+    deleteProduct = async (params) => {
         const promise = new Promise((resolve, reject) => {
             axios.delete(`${this.baseURL}admin/driver`, {params: params})
                 .then((res) => {
@@ -49,7 +49,7 @@ class ProductService {
 
 
 
-    fetchDriver = async () => {
+    fetchProduct = async () => {
         const promise = new Promise((resolve, reject) => {
             axios.get(`${this.baseURL}admin/driver`)
                 .then((res) => {

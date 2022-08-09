@@ -31,7 +31,7 @@ export default function DashBoardNav() {
                     </Link>
 
 
-                    <Link href="viewSchedule" underline="none">
+                    <Link href="cart" underline="none">
                         <Button style={{backgroundColor:"#008000"}} variant="contained" sx={{ml:4}}>Cart</Button>
                     </Link>
 

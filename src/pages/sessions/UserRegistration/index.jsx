@@ -257,7 +257,7 @@ const Register = () => {
                     </Button>
                 </Box>
                 <Typography sx={{mt: 1, ml: 20}}> Previous Page ?
-                    <Link href="dashboard" underline="none" >
+                    <Link href="dash" underline="none" >
                         Sign In
                     </Link>
                 </Typography>

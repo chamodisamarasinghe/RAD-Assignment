@@ -9,7 +9,7 @@ import { CardActionArea } from '@mui/material';
 import Reg from "../../../assets/images/reg.jpg"
 import Book from "../../../assets/images/book.jpg"
 import produ from "../../../assets/images/produ.jpg"
-import harvest from "../../../assets/images/harvest.png"
+import cart from "../../../assets/images/cart.jpg"
 import DashNav from "../../sessions/Dash/nav";
 
 const Dash = ({}) => {
@@ -79,15 +79,15 @@ const Dash = ({}) => {
                     <CardMedia
                         component="img"
                         height="140"
-                        image={harvest}
+                        image={cart}
                         alt="green iguana"
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Products
+                            Cart
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            60
+                            12
                         </Typography>
                         <Typography gutterBottom variant="h5" component="div">
                             {/*Active Bookings*/}
@@ -99,55 +99,6 @@ const Dash = ({}) => {
                 </CardActionArea>
             </Card>
 
-            {/*<Card sx={{ maxWidth: 345,ml:125,mt:-37 }}>*/}
-            {/*    <CardActionArea>*/}
-            {/*        <CardMedia*/}
-            {/*            component="img"*/}
-            {/*            height="140"*/}
-            {/*            image={Driver}*/}
-            {/*            alt="green iguana"*/}
-            {/*        />*/}
-            {/*        <CardContent>*/}
-            {/*            <Typography gutterBottom variant="h5" component="div">*/}
-            {/*                Cart*/}
-            {/*            </Typography>*/}
-            {/*            <Typography variant="body2" color="text.secondary">*/}
-            {/*               12*/}
-            {/*            </Typography>*/}
-            {/*            <Typography gutterBottom variant="h5" component="div">*/}
-            {/*                /!*Occupied Drivers*!/*/}
-            {/*            </Typography>*/}
-            {/*            <Typography variant="body2" color="text.secondary">*/}
-            {/*                /!*15*!/*/}
-            {/*            </Typography>*/}
-            {/*        </CardContent>*/}
-            {/*    </CardActionArea>*/}
-            {/*</Card>*/}
-
-            {/*<Card sx={{ maxWidth: 345,ml:75,mt:5 }}>*/}
-            {/*    <CardActionArea>*/}
-            {/*        <CardMedia*/}
-            {/*            component="img"*/}
-            {/*            height="140"*/}
-            {/*            image={Maintain}*/}
-            {/*            alt="green iguana"*/}
-            {/*        />*/}
-            {/*        <CardContent>*/}
-            {/*            <Typography gutterBottom variant="h5" component="div">*/}
-            {/*                Available Drivers*/}
-            {/*            </Typography>*/}
-            {/*            <Typography variant="body2" color="text.secondary">*/}
-            {/*                40*/}
-            {/*            </Typography>*/}
-            {/*            <Typography gutterBottom variant="h5" component="div">*/}
-            {/*                Occupied Drivers*/}
-            {/*            </Typography>*/}
-            {/*            <Typography variant="body2" color="text.secondary">*/}
-            {/*                15*/}
-            {/*            </Typography>*/}
-            {/*        </CardContent>*/}
-            {/*    </CardActionArea>*/}
-            {/*</Card>*/}
 
         </div>
     )

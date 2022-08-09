@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 
 export default function DashBoardNav() {
     return (
-        <Box sx={{flexGrow: 1,color:"green"}}>
+        <Box sx={{flexGrow: 1,backgroundColor:"green"}}>
             <AppBar position="static">
                 <Toolbar variant="dense">
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -35,6 +35,10 @@ export default function DashBoardNav() {
                         <Button  color='primary' variant="contained" sx={{ml:4}}>Cart</Button>
                     </Link>
 
+
+                    <Link href="table" underline="none">
+                        <Button  color='primary' variant="contained" sx={{ml:6}}>User Table</Button>
+                    </Link>
                 </Toolbar>
             </AppBar>
         </Box>

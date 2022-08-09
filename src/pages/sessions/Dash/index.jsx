@@ -3,9 +3,18 @@ import Grid from "@material-ui/core/Grid";
 import {Link} from "react-router-dom";
 import NavBar from "../../../components/common/NavBar";
 import {Typography} from "@mui/material";
-import DashBoardNav from "../Dash/nav";
 
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
 
+import pro from "../../../assets/images/pro.jpg"
+import produ from "../../../assets/images/produ.jpg"
+import DashNav from "./nav";
+import Box from "@material-ui/core/Box";
+import BoxSx from "../../../components/common/box";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 // const driver = new URL("../../../assets/driver.png",import.meta.url)
 // const car9 = new URL("../../../assets/car9.png",import.meta.url)
@@ -17,34 +26,19 @@ class DashBoard extends Component {
 
     render() {
         return (
-            <Fragment>
+            <div>
                 <Grid >
-                    <div>
-                        <DashBoardNav/>
+                    <DashNav/>
 
-                    </div>
                 </Grid>
 
 
-                <Grid item lg={12} xs={12} sm={12} md={12}>
-                    <Typography variant="h3" style={{marginLeft:590, marginTop:30, color:"#00008B", fontWeight:"bold", fontSize:60,fontFamily: "Times New Roman"}}>Driver</Typography>
-                </Grid>
+                <div>
 
+                </div>
 
-                <Grid>
-                    {/*<img src={car9} style={{ position:"absolute",top:8, left:200,height:30,width:30}}/>*/}
-                    {/*<img src={driver} style={{position:"absolute", top:70, left:800,width:100,height:100}}/>*/}
-                </Grid>
+            </div>
 
-
-
-
-
-
-
-
-
-            </Fragment>
         )
     }
 }

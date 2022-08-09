@@ -1,46 +1,157 @@
-import React, { Component, Fragment } from "react";
-import Grid from "@material-ui/core/Grid";
-import {Link} from "react-router-dom";
-import NavBar from "../../../components/common/NavBar";
-import {Typography} from "@mui/material";
-
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-
-import pro from "../../../assets/images/pro.jpg"
+import React from 'react'
+import {Grid} from "@mui/material";
+import RubberBtn from "../../../components/common/RubberBandBtn";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import Reg from "../../../assets/images/reg.jpg"
+import Book from "../../../assets/images/book.jpg"
 import produ from "../../../assets/images/produ.jpg"
-import DashNav from "./nav";
-import Box from "@material-ui/core/Box";
-import BoxSx from "../../../components/common/box";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import harvest from "../../../assets/images/harvest.png"
+import DashNav from "../../sessions/Dash/nav";
 
-// const driver = new URL("../../../assets/driver.png",import.meta.url)
-// const car9 = new URL("../../../assets/car9.png",import.meta.url)
-// const cus = new URL("../../../assets/cus.png",import.meta.url)
-class DashBoard extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <div>
-                <Grid >
-                    <DashNav/>
-
-                </Grid>
+const Dash = ({}) => {
 
 
-                <div>
+    return (
+        <div>
+            <Grid >
+                <DashNav/>
 
-                </div>
+            </Grid>
 
-            </div>
 
-        )
-    }
+
+            <Grid item lg={12} xs={12} sm={12} md={12}>
+
+            </Grid>
+            <Card sx={{ maxWidth: 345,ml:25,mt:10 }}>
+                <CardActionArea>
+                    <CardMedia
+                        component="img"
+                        height="140"
+                        image={Reg}
+                        alt="green iguana"
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            Users
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            43
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+
+            <Card sx={{ maxWidth: 345,ml:75,mt:-29 }}>
+                <CardActionArea>
+                    <CardMedia
+                        component="img"
+                        height="140"
+                        image={produ}
+                        alt="green iguana"
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            Products
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                           60
+                        </Typography>
+                        <Typography gutterBottom variant="h5" component="div">
+                            {/*Active Bookings*/}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            {/*5*/}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+
+
+
+
+            <Card sx={{ maxWidth: 345,ml:125,mt:-29 }}>
+                <CardActionArea>
+                    <CardMedia
+                        component="img"
+                        height="140"
+                        image={harvest}
+                        alt="green iguana"
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            Products
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            60
+                        </Typography>
+                        <Typography gutterBottom variant="h5" component="div">
+                            {/*Active Bookings*/}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            {/*5*/}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+
+            {/*<Card sx={{ maxWidth: 345,ml:125,mt:-37 }}>*/}
+            {/*    <CardActionArea>*/}
+            {/*        <CardMedia*/}
+            {/*            component="img"*/}
+            {/*            height="140"*/}
+            {/*            image={Driver}*/}
+            {/*            alt="green iguana"*/}
+            {/*        />*/}
+            {/*        <CardContent>*/}
+            {/*            <Typography gutterBottom variant="h5" component="div">*/}
+            {/*                Cart*/}
+            {/*            </Typography>*/}
+            {/*            <Typography variant="body2" color="text.secondary">*/}
+            {/*               12*/}
+            {/*            </Typography>*/}
+            {/*            <Typography gutterBottom variant="h5" component="div">*/}
+            {/*                /!*Occupied Drivers*!/*/}
+            {/*            </Typography>*/}
+            {/*            <Typography variant="body2" color="text.secondary">*/}
+            {/*                /!*15*!/*/}
+            {/*            </Typography>*/}
+            {/*        </CardContent>*/}
+            {/*    </CardActionArea>*/}
+            {/*</Card>*/}
+
+            {/*<Card sx={{ maxWidth: 345,ml:75,mt:5 }}>*/}
+            {/*    <CardActionArea>*/}
+            {/*        <CardMedia*/}
+            {/*            component="img"*/}
+            {/*            height="140"*/}
+            {/*            image={Maintain}*/}
+            {/*            alt="green iguana"*/}
+            {/*        />*/}
+            {/*        <CardContent>*/}
+            {/*            <Typography gutterBottom variant="h5" component="div">*/}
+            {/*                Available Drivers*/}
+            {/*            </Typography>*/}
+            {/*            <Typography variant="body2" color="text.secondary">*/}
+            {/*                40*/}
+            {/*            </Typography>*/}
+            {/*            <Typography gutterBottom variant="h5" component="div">*/}
+            {/*                Occupied Drivers*/}
+            {/*            </Typography>*/}
+            {/*            <Typography variant="body2" color="text.secondary">*/}
+            {/*                15*/}
+            {/*            </Typography>*/}
+            {/*        </CardContent>*/}
+            {/*    </CardActionArea>*/}
+            {/*</Card>*/}
+
+        </div>
+    )
+
 }
 
-export default DashBoard
+export default Dash
